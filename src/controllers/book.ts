@@ -1,3 +1,4 @@
+// Este código define las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar los libros
 import { Request, Response } from 'express';
 
 export const getBooks = (req: Request, res: Response) => {
