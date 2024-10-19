@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import routesBook from '../routes/book';
+import db from '../db/connection';
+import cors from 'cors';
 class Server {
     private app: express.Application;
     private port: string;
@@ -9,6 +11,7 @@ class Server {
         this.listen();
         this.middlewares();
         this.routes();
+        this.dbConnect();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -25,6 +28,19 @@ class Server {
     }
     middlewares() {
         this.app.use(express.json());
+        // Cors
+        this.app.use(cors());
+    }
+    async dbConnect() {
+
+        try {
+            await db.authenticate();
+            console.log("DB Connected");
+        } catch (error) {
+            console.log(error);
+            console.log('error db');
+
+        }
     }
 }
 
